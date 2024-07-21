@@ -1,0 +1,33 @@
+{
+  "name": "simple_payment_api",
+  "version": "1.0.0",
+  "description": "simple backend APIs for a payment app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [
+    "payment",
+    "api"
+  ],
+  "author": "samaya_mahate",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "express-validator": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.10.2",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/sequelize": "^4.28.20",
+    "nodemon": "^3.1.4"
+  }
+}
