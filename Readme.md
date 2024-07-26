@@ -20,6 +20,10 @@ This project provides a simple backend API for a payment app. It includes user m
   
    npm install
 
+### Setting Up MySQL DB
+
+  include DB name, host, password in the env variable 
+
 ## Running the Application
 
 - To start the application in production mode:
