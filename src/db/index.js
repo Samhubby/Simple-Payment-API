@@ -16,9 +16,9 @@ export const connectDB = async () => {
   try {
     await sequelize.authenticate();
     sequelize.sync();
-    console.log("Connected to Azure MySQL");
+    console.log("Connected to MySQL");
   } catch (error) {
-    console.log("Error in connecting Azure MySQL", error.message);
+    console.log("Error in connecting MySQL", error.message);
   }
 };
 

@@ -1,24 +1,25 @@
-import rateLimit from "express-rate-limit";
+import { redisClient } from "../db/redis.js";
 import { ApiError } from "../utils/ApiError.js";
 
+const rateLimiter = (rule) => {
+  try {
+    const { endpoint, rate_limit } = rule;
+    return async (req, res, next) => {
+      const ipAddress = req.connection.remoteAddress;
+      const redisID = `${endpoint}/${ipAddress}`;
 
-const createRateLimit = (message) => {
-  return rateLimit({
-    windowMs: 24 * 60 * 60 * 1000, // 1 day in milliseconds
-    max: 5,
-    handler: (_, res) => {
-      return res
-        .status(429)
-        .json(
-          new ApiError(
-            429,
-            `You have exceeded your limit for updating ${message}`
-          )
-        );
-    },
-
-    headers: true,
-  });
+      const request = await redisClient.incr(redisID);
+      if (request === 1) await redisClient.expire(redisID, rate_limit.time);
+      if (request > rate_limit.limit) {
+        return res.status(429).json(new ApiError(429, "Too Many Requests"));
+      }
+      next();
+    };
+  } catch (error) {
+    return res
+      .status(error.statusCode || 500)
+      .json({ message: new ApiError(error.statusCode, error.message) });
+  }
 };
 
-export { createRateLimit };
+export { rateLimiter };

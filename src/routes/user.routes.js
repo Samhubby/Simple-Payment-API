@@ -14,7 +14,8 @@ import {
   sanitizeForPassword,
   sanitizeForUsername,
 } from "../utils/InputValidation.js";
-import { createRateLimit } from "../middlewares/ratelimit.middlewares.js";
+import { rateLimiter } from "../middlewares/ratelimit.middlewares.js";
+import { USER_RATE_LIMIT_RULE } from "../utils/RatelimitRule.js";
 
 const router = Router();
 
@@ -27,7 +28,7 @@ router
   .patch(
     verifyJWT,
     sanitizeForUsername,
-    createRateLimit("username"),
+    rateLimiter(USER_RATE_LIMIT_RULE),
     updateUsername
   );
 router
@@ -35,7 +36,7 @@ router
   .patch(
     verifyJWT,
     sanitizeForPassword,
-    createRateLimit("password"),
+    rateLimiter(USER_RATE_LIMIT_RULE),
     updatePassword
   );
 router
@@ -43,7 +44,7 @@ router
   .patch(
     verifyJWT,
     sanitizeForContact,
-    createRateLimit("contact"),
+    rateLimiter(USER_RATE_LIMIT_RULE),
     updateContact
   );
 

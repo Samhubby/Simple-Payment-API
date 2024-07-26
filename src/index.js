@@ -11,4 +11,4 @@ connectDB()
       console.log(`Server started at PORT: ${PORT}`);
     });
   })
-  .catch(() => console.log("Error while connecting to Azure MySQL"));
+  .catch(() => console.log("Error while connecting to MySQL"));
