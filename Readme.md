@@ -7,6 +7,7 @@ This project provides a simple backend API for a payment app. It includes user m
 - Node.js
 - Express.js
 - MySQL
+- Redis
 
 ## Getting Started
 
